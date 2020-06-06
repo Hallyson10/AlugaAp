@@ -39,7 +39,8 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case 'EMAIL_ENVIADO' : return {
+        case 'EMAIL_ENVIADO' : 
+        return {
             ...state,
             emailEnviado : action.payload
         }
@@ -54,7 +55,7 @@ export default function reducer(state = initialState, action) {
         }
         case Types.LOGOUT : return {
             ...state,
-            ...initialState
+            user : {...initialState.user}
         }
         case Types.SELECIONAFOTO : return {
             ...state,
@@ -148,10 +149,20 @@ export function desativaModalEmailEnviado(){
         type : 'EMAIL_ENVIADO',payload : false
     }
 }
+export function ativaModalEmailEnviado(){
+    return {
+        type : 'EMAIL_ENVIADO',payload : true
+    }
+}
 export function desativaModalVerificaEmail(){
     return {
         type : 'EMAIL_VERIFIED',
         payload : false
+    }
+}
+export function ativaModalEmailVerificado(){
+    return{
+        type : 'EMAIL_VERIFIED',payload : true
     }
 }
 export function EnviarEmailVerification(){
@@ -159,11 +170,13 @@ export function EnviarEmailVerification(){
         try {
             async function send(){
             await firebase.auth().currentUser.sendEmailVerification();
+            dispatch({type : 'EMAIL_VERIFIED',payload : false})
             dispatch({type : 'EMAIL_ENVIADO',payload : true})
             }
             send();
         } catch (error) {
             dispatch({type : 'EMAIL_ENVIADO',payload : false})
+            dispatch({type : 'EMAIL_VERIFIED',payload : false})
         }
     }
 }

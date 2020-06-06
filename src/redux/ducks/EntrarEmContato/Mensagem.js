@@ -208,6 +208,7 @@ export function PermitirAcessoAoNumero(id_solicitante,data){
                 })
                 async function permitir(){
                     //exclui o solicitado dos pendentes
+                    try {
                     bd.collection('solicitacoes')
                     .doc(id_solicitante).collection('pendentes').doc(id_solicitado).delete();
                     //verifica se o solicitado tbem esta nos pendentes de solicitante
@@ -223,7 +224,10 @@ export function PermitirAcessoAoNumero(id_solicitante,data){
                      updateNotification(id_solicitado,'aceita');
                      //limpa os usuários pendentes novamente para não aparece o usuário que enviou
                      dispatch({type:Type.SETSOLICITACAO ,payload : []})
-
+                    } catch (error) {
+                        alert(error)
+                        return false;
+                    }
             }
             permitir();
             return;
@@ -233,14 +237,9 @@ export function PermitirAcessoAoNumero(id_solicitante,data){
         }
         }
 }
-// export function setLoadSolicitacaoAceita(payload){
-//     return {
-  
-//     }
-// }
 async function finduser(idAutor){
+    try {
     let refUser = await bd.collection('users').doc(idAutor).get();
-    let res = await refUser.data();
     let { username,userId,fotosPerfil,sexo,idade,statusOnline } = await refUser.data().user;
     let user = {
         username,userId,
@@ -248,76 +247,103 @@ async function finduser(idAutor){
         idade,statusOnline
     }
     return user
+    } catch (error) {
+        return new Error('Usuário não encontrado!')
+    }
 }
 export function getSolicitacoesAceitas(userId){
     return dispatch => {
         try {
             async function findAceitas(){
-                const find = await bd.collection('permissao').doc(userId).collection('permitidos');
-    
-                find.onSnapshot({includeMetadataChanges : false},async(item)=>{
-                    const data = item.docs.map((item)=>item.data());
-                   
-                        const user = await Promise.all(data.map(async (item)=> {
-                            const dataUser = await finduser(item.id_solicitante);
-                            console.log(dataUser)
-                            return { item,user : dataUser };
-                        }))
-                        dispatch({ type : Type.SETSOLICITACAOACEITA, payload : user });
-                        const notification = await bd.collection('notificationAceita')
-                    .doc(userId).get();
-                    const dataNotification = notification.data()
-                    if(notification.exists){
-                        if(dataNotification.newSolicitacaoAceita){
-                            dispatch({ type : 'SETNEWSOLICITACOESACEITAS', payload : true });
-                            dispatch({ type : Type.COUNTACEITAS, payload : dataNotification.countAceitas})
-                            return;
-                        }
-                        dispatch({ type : 'SETNEWSOLICITACOESACEITAS', payload : false });
-                        dispatch({ type : Type.COUNTACEITAS, payload : 0});
-                        return;
-                    }
-                    return;
-                })
+                try {
+                    const find = await bd.collection('permissao').doc(userId).collection('permitidos');
+                    const resul = await (await find.get()).docs
+                    const response =  resul.map((item)=>{
+                        return item.data();
+                    })
+                    const data = await Promise.all(response.map(async(item)=>{
+                        const dataUser = await finduser(item.id_solicitante);
+                        return { item , user : dataUser};
+                    }))
+                    dispatch({ type : Type.SETSOLICITACAOACEITA, payload : data });
+                    //notifica(userId,dispatch);
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+                
             }
             findAceitas();
         } catch (error) {
-            console.log(error);
+            alert(error)
         }
     }
 }
+// async function notifica(userId,dispatch){
+//         const notification = await bd.collection('notificationAceita')
+//         .doc(userId).get();
+//         const dataNotification = notification.data()
+//         if(notification.exists){
+//            if(dataNotification.newSolicitacaoAceita){
+//                dispatch({ type : 'SETNEWSOLICITACOESACEITAS', payload : true });
+//                dispatch({ type : Type.COUNTACEITAS, payload : dataNotification.countAceitas})
+//                return;
+//            }
+//         dispatch({ type : 'SETNEWSOLICITACOESACEITAS', payload : false });
+//         dispatch({ type : Type.COUNTACEITAS, payload : 0});
+//     return;
+//     }
+// }
 export function getSolicitacoesPendentes(userId){
     return dispatch =>{ 
     try {
         async function findPendentes(){
-            let pendentes = await bd.collection('solicitacoes')
-            .doc(userId);
-
-            let tentativa = await pendentes.collection('pendentes');
-
-            tentativa.onSnapshot({includeMetadataChanges : false},async(item)=>{
-                const data = item.docs.map(item => item.data());
-                    const user = await Promise.all(data.map(async (item)=>{
+                const solicitacoes = await bd.collection('solicitacoes')
+                .doc(userId);
+                const pendentes = await solicitacoes.collection('pendentes');
+                const response = (await pendentes.get()).docs
+                const data = response.map((item)=>{
+                    return item.data();
+                })
+                const users = await Promise.all(data.map(async(item)=>{
                         const dataUser = await finduser(item.id_solicitante);
-                        return {item,user : dataUser};
-                    }))
-                    dispatch({ type : Type.SETSOLICITACAO, payload : user})
+                        return { item , user : dataUser};
+                }))
+                dispatch({ type : Type.SETSOLICITACAO, payload : users});
+            // try {
+            //     let pendentes = await bd.collection('solicitacoes')
+            // .doc(userId);
+
+            // let tentativa = await pendentes.collection('pendentes');
+
+            // tentativa.onSnapshot({includeMetadataChanges : false},async(item)=>{
+            //     const data = item.docs.map(item => item.data());
+            //     const user = await Promise.all(data.map(async (item)=>{
+            //             const dataUser = await finduser(item.id_solicitante);
+            //             return {item,user : dataUser};
+            //     }))
+            //         dispatch({ type : Type.SETSOLICITACAO, payload : user})
             
-                    const notification = await bd.collection('notificationPendente')
-                    .doc(userId).get();
-                    const dataNotification = notification.data()
-                    if(notification.exists){
-                        if(dataNotification.newSolicitacaoPendente){
-                            //dispatch({ type : 'SETNEWSOLICITACOESPENDENTES', payload : true });
-                            dispatch({ type : Type.COUNTPENDENTES, payload : dataNotification.countPendentes})
-                            return;
-                        }
-                            dispatch({type :'SETNEWSOLICITACOESPENDENTES', payload : false });
-                            dispatch({ type : Type.COUNTPENDENTES, payload : 0});
-                            return;
-                    }
-                    return;
-            })
+            //         const notification = await bd.collection('notificationPendente')
+            //         .doc(userId).get();
+            //         const dataNotification = notification.data()
+            //         if(notification.exists){
+            //             if(dataNotification.newSolicitacaoPendente){
+            //                 //dispatch({ type : 'SETNEWSOLICITACOESPENDENTES', payload : true });
+            //                 dispatch({ type : Type.COUNTPENDENTES, payload : dataNotification.countPendentes})
+            //                 return;
+            //             }
+            //                 dispatch({type :'SETNEWSOLICITACOESPENDENTES', payload : false });
+            //                 dispatch({ type : Type.COUNTPENDENTES, payload : 0});
+            //                 return;
+            //         }
+            //         return;
+            // })
+            // } catch (error) {
+            //     alert(JSON.stringify(error));
+            //     return false;
+            // }
+            
         }
         findPendentes();
     } catch (error) {
@@ -394,8 +420,6 @@ export function verificaNotifAceita(userId){
                 const dataNotification = notification.data()
                 if(notification.exists){
                     if(dataNotification.newSolicitacaoAceita){
-                        alert('verificando notifaceitas')
-        
                         dispatch({type :'SETNEWSOLICITACOESACEITAS', payload : true });
                         dispatch({ type : Type.COUNTACEITAS, payload : dataNotification.countAceitas})
                     }

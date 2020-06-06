@@ -3,7 +3,7 @@ import { StatusBar,Platform, View, Keyboard, Alert,Modal } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import InputSearch from '../../components/InputSearch'
 import Pesquisa from '../../components/Pesquisa/Index'
-import Postagens from '../AllPosts/Index'
+import Postagens from './Index'
 
 import { 
   FilterPosts,
@@ -23,7 +23,6 @@ export default function Posts(props){
     const cidadeSearch = useSelector(state=> state.post.cidadeSearch);
     const loadPosts = useSelector(state => state.post.loadPosts);
     const userId = useSelector(state => state.profile.user.userId);
-    const [atived,setAtived] = useState(false);
 
     const dispatch = useDispatch();
     
@@ -38,11 +37,7 @@ export default function Posts(props){
         dispatch(EnviarEmailVerification());
         dispatch(Logout());
     }
-    useEffect(()=>{
-        setTimeout(()=>{
-            setAtived(true);
-        },9000)
-    },[])
+    
 
         return (
             <View style={{flex:1,backgroundColor:'#F1EDED'}}>

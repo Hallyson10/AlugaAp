@@ -3,6 +3,7 @@ import { View, TouchableOpacity,Text,StatusBar } from 'react-native'
 import { Fundo } from '../../styles/fundos'
 import { Botao } from '../../styles/buttons'
 import { Texts } from '../../styles/texts'
+
 export default Welcome = (props) => {
     return(
         <View style={ [Fundo.padrao,{backgroundColor:'#FFF'}] }>

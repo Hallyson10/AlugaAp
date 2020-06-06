@@ -16,7 +16,7 @@ export default function Options (props) {
     let imagesPost = useSelector(state => state.post.post.images);
     const user = useSelector(state => state.profile.user)
     function typeVaga(){
-        if(imagesPost.length > 3){
+        if(imagesPost.length >= 3){
             dispatch(typeVagaCompartilhada(true));
             dispatch(typeVagaCompleta(false));
             props.navigation.navigate('newPost',{type:'compartilhada'});

@@ -148,6 +148,7 @@ export function AlterarInfBasicas(informacoes){//ok
             await bd.collection('users').doc(informacoes.userId).update({
                 "user.username" : informacoes.username,
                 "user.idade" : informacoes.idade,
+                "user.sexo" : informacoes.sexo,
                 "user.escolaridade" : informacoes.escolaridade,
                 "user.cidadeNatal" : informacoes.cidadeNatal,
                 "user.dataNascimento" : informacoes.dataNascimento,

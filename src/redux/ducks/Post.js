@@ -614,7 +614,6 @@ export default function reducer(state = initialState, action) {
 //busca e retorna todas as informações dos usuários
 async function finduser(idAutor){
     let refUser = await db.collection('users').doc(idAutor);
-    db.collection('users').doc(idAutor);
     let resul = await refUser.get()
     let response = await resul.data();
     return response.user
@@ -757,10 +756,11 @@ export const FindPosts = (userId,lastItem) => {
 
            } catch (error) {
                dispatch({type:'LOADFINDPOSTS',payload:false})
-
+                alert(JSON.stringify(error))
            }
     }
     } catch (error) {
+        alert(JSON.stringify(error))
         return;
     }
 }   

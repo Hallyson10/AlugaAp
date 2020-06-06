@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
         width : Dimensions.get('window').width / 1.1,
         borderWidth: 1,
         backgroundColor:'#F2F2F2',
-        paddingLeft:10
+        paddingLeft:10,
+        borderRadius:30
     }
 })
 export default InputRegister

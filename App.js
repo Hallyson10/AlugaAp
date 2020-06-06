@@ -6,7 +6,7 @@ import 'react-native-gesture-handler'
 import Navegador from './src/navigator'
 import store from './src/redux/store/index'
 import firebase from './src/Service/index'
-import RecuperarSenha from './src/pages/RecuperarSenha/RecuperarSenha'
+import TelaInicial from './src/pages/TelaInicial/Index' 
 import type { RemoteMessage,Notification, NotificationOpen } from 'react-native-firebase';
 import ConfigPerfil from './src/pages/ConfiguracoesUsuario/Index'
 export default class App extends PureComponent{
@@ -95,7 +95,9 @@ export default class App extends PureComponent{
   }
   render(){
     return (
-      <RecuperarSenha/>
+    <Provider store={store}>
+     <Navegador/>
+     </Provider>  
   );
 }
 };

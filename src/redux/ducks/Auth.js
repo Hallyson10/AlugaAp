@@ -9,7 +9,7 @@ const initialState = {
     email : '',
     password : '',
     erroAuth : {},
-    loadingAuth : false
+    loadingAuth : false,
   };
   
 export default function reducer(state = initialState, action) {
@@ -42,7 +42,6 @@ export default function reducer(state = initialState, action) {
         erroAuth : action.payload
       }
       case Types.LOGOUT:
-        console.log('limpando usuário no profile')
         return {
           ...state,
           ...initialState
@@ -89,6 +88,7 @@ const isEmpty = (string) => {
 
 export const Login = (email, password) => {
   try {
+   
   var ErrorsLogin = {};
   if(isEmpty(email) || !isEmail(email)) ErrorsLogin.email = 'Digite um email válido';
   if(isEmpty(password) || password.length < 6) ErrorsLogin.password = 'Minímo permitido 6 caracteres';
@@ -97,8 +97,9 @@ export const Login = (email, password) => {
 
     
       return async dispatch => {
+
       dispatch({type: Types.LOADINGAUTH , payload : true})
-      const user = await firebase.auth().signInWithEmailAndPassword(email, password).catch((error)=>{
+       await firebase.auth().signInWithEmailAndPassword(email, password).catch((error)=>{
         if(error.code === 'auth/user-not-found') ErrorsLogin.email = 'Ops,email inexistente!'  
         if(error.code === 'auth/wrong-password') ErrorsLogin.password = 'Ops, senha incorreta!'
         if(error.code === 'auth/unknown') ErrorsLogin.ErrorDesconhecido = 'Ocorreu um erro, verifique sua internet!'
@@ -118,16 +119,16 @@ export const Login = (email, password) => {
 }
 export const isAuth = () => {
   try {
-    return async dispatch => {
-      await firebase.auth().onAuthStateChanged((user)=>{
-        if(user){
-          dispatch({type: Types.AUTH, payload : user.uid})
-        }else{
-          dispatch({type: Types.AUTHERRO})
-        }
+    // return async dispatch => {
+    //   await firebase.auth().onAuthStateChanged((user)=>{
+    //     if(user){
+    //       dispatch({type: Types.AUTH, payload : user.uid})
+    //     }else{
+    //       dispatch({type: Types.AUTHERRO})
+    //     }
         
-      })
-    }
+    //   })
+    // }
   } catch (error) {
     console.log(error + 'auth')
   }
@@ -136,15 +137,12 @@ export const isAuth = () => {
 export const Logout = () => {
   try {
     return async dispatch => {
-      
+       await firebase.auth().signOut();
       dispatch({type: Types.LOGOUT})
       dispatch({type: 'LOGOUT'})
       dispatch({type:'LIMPAPOSTSREGISTER'})
-      console.log(user)
-      console.log("deslogou")
-      let user = await firebase.auth().signOut();
     }
   } catch (error) {
-    console.log(error)
+    return false;
   }
 }

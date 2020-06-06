@@ -57,8 +57,9 @@ export default React.memo(function PostComponent(props) {
               valor={props.item.completa ? props.item.valorTotal : props.item.valorIndividual}
               navigation={props.navigation}
               images={props.item.images}
-              toPost={()=>this.props.navigation.navigate('ImageTelaGrande',
-                {images:props.item.images,navigation:this.props.navigation,index : props.item.images.indexOf(item)})}
+              toPost={(index)=>
+                props.navigation.navigate('ImageTelaGrande',
+                {images:props.item.images,navigation:props.navigation,index : props.item.images.indexOf(index)})}
               EnviarMensage={props.EnviarMensage}
               postedPost={props.postedPost}
                />

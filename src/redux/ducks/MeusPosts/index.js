@@ -53,23 +53,20 @@ export default function reducer(state = initialState, action) {
 //     }
 // }
 async function buscaPosts(vagaId){
-    console.log('imprimindo o vagaID do buscaPosts',vagaId)
     try {
         let ref = await db.collection('vagasCompartilhadas').doc(vagaId).get()
-        console.log('imprimindo o ref.data() buscaposts',ref.data())
         let image = await db.collection('vagasCompartilhadas').doc(vagaId).collection('images').get();
         await image.docs.map((images)=>{
             ref.data().images.push(images.data());
         })
         return ref.data();
     } catch (error) {
-        return {}
+        alert(error)
     }
 }
 export function buscaMeusPosts(userId){
         return dispatch => {
             try {
-                console.log('entrou busca meus posts')
                 async function busca(){
                     let refIdsPosts = await db.collection('myPostsPublicados')
                     .doc(userId).collection('posts').get();
@@ -78,13 +75,11 @@ export function buscaMeusPosts(userId){
                         let post = await buscaPosts(snapshot.data().vagaId);
                         return post;
                     }))
-                    
-                    console.log('imprimindo o post do finmyposts',Posts)
-                    dispatch({type : types.FINDMYPOSTS,payload : Posts})
+                   dispatch({type : types.FINDMYPOSTS,payload : Posts})
                 }
                 busca();
             } catch (error) {
-                console.log(error)
+                alert(error)
             }
            
         }
@@ -99,7 +94,7 @@ export const removeMyPost = (postId,userId) => {
         }
         
     } catch (error) {
-        
+        alert(error)
     }
 }
 export function RemoveFoto(vagaId,fotoId){

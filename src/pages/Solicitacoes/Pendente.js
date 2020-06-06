@@ -25,7 +25,7 @@ const Index = () => {
     },[newSolicitacaoPendente,getSolicitacoesPendentes]);
 
     useEffect(() => {
-        if(!view){
+         if(!view){
             findPendentes();
             dispatch(setViewPendente());
             //verifica se tm notificação se tiver limpa as notificações
@@ -34,7 +34,7 @@ const Index = () => {
             dispatch(resetaNotificaoesPendentes(user.userId));
             },4000)
             }
-        }
+         }
         
     },[newSolicitacaoPendente])
 

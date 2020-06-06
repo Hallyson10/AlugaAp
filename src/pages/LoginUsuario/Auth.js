@@ -8,7 +8,6 @@ import { Texts } from '../../styles/texts'
 import { Fundo } from '../../styles/fundos'
 import ButtonNext from '../../components/subComponentes/ButtonNext'
 import InputRegister from '../../components/RegisterUsers/InputRegister'
-
 class Auth extends Component {
     state = {
       secureTextEntry : true,
@@ -63,7 +62,7 @@ class Auth extends Component {
                 title='Entrar'
                 disabled={this.props.loadingAuth}
               />
-                </View> 
+                </View>
             </View>
         )
     }
@@ -74,7 +73,7 @@ const mapStateToProps = state => ({
   password : state.auth.password,
   erroAuth : state.auth.erroAuth,
   isLogged : state.auth.isLogged,
-  loadingAuth : state.auth.loadingAuth
+  loadingAuth : state.auth.loadingAuth,
 });
 const mapDispathToProps = dispatch => 
   bindActionCreators({ Login, Email, Password, setUser }, dispatch);

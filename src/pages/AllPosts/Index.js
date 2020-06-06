@@ -21,7 +21,6 @@ const Index = (props) => {
     const loadPosts = useSelector(state => state.post.loadPosts);
     const [sizeTela,setSize] = useState(0);
     const dispatch = useDispatch();
-    
     function likar(vagaId){
         if(cliques == 0){
             dispatch(favoritarPost(vagaId,user.userId));
@@ -33,7 +32,6 @@ const Index = (props) => {
         let {
             vagaId,idAutor,endereco,descricao,createAt,completa,compartilhada,disponivel,images
             } = item;
-            console.log('imprimindo o item',item);
         let vaga = {
             vagaId,idAutor,endereco,descricao,createAt,completa,compartilhada,disponivel,images,
             phone : '5588992046291',permissionNumber : false

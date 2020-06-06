@@ -26,7 +26,7 @@ import Login from '../pages/LoginUsuario/Auth'
 import Profile from '../pages/PerfilUsuario/Profile'
 import ProfileVaga from '../pages/PerfilVaga/ProfileVaga'
 import LoadingLogin from '../pages/TelaCarregamento/LoadingLogin'
-import Post from '../pages/TelaInicial/Post'
+import Post from '../pages/AllPosts/Post'
 import InteressadosPost from '../pages/PessoasInteressadasVaga/InteressadosPost'
 import newPost from '../pages/CadastroPost/NewPost'
 import InformationsPost from '../pages/CadastroPost/InformationsPost'
@@ -41,6 +41,8 @@ import FilterPeoples  from '../pages/FiltrarBusca/FilterPeoples'
 import SolicitacoesAceitas from '../pages/Solicitacoes/Aceitas'
 import RedesSociais from '../pages/RedesSociais/index'
 import ConfigPerfil from '../pages/ConfiguracoesUsuario/Index'
+import RedefinirSenha from '../pages/RecuperarSenha/RecuperarSenha'
+import TelaInicial from '../pages/TelaInicial/Index'
 // const TabTop = createMaterialTopTabNavigator({
 //   Solicitacoes : {
 //     name : 'solicitacoes',
@@ -183,7 +185,7 @@ const LoadingLog = createStackNavigator({
 })
 
 const Auth = createStackNavigator({
-  Welcome ,
+  TelaInicial,
   Login,
   FormName,
   FormSenha,
@@ -192,7 +194,7 @@ const Auth = createStackNavigator({
   AdicionarFotosPerfil,
 },
 {
-  initialRouteName : 'Welcome',
+  initialRouteName : 'TelaInicial',
   headerMode : 'none'
 }
 );
@@ -221,7 +223,8 @@ const App = createStackNavigator(
    MeusPosts,
    EditarFotosPost,
    ConfigPost,
-   ConfigEndereco 
+   ConfigEndereco,
+   RedefinirSenha 
 },
 {
   initialRouteName :  'Tab',

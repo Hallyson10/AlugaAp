@@ -56,7 +56,7 @@ class PostPhotos extends Component{
             <View>
                 <TouchableOpacity 
                 activeOpacity={1}
-                onPress={this.props.toPost}
+                onPress={()=>this.props.toPost(item)}
                 >
                 <FastImage
                     style={{ width:Dimensions.get('window').width/1, 

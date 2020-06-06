@@ -65,7 +65,7 @@ function FormName(props){
         colors={['#FFF',"#FFF"]}
         style={{flex:1}}
         >
-        <StatusBar hidden={false} animated barStyle='light-content' backgroundColor='#57CF87' />
+        <StatusBar hidden animated barStyle='light-content' backgroundColor='#57CF87' />
         <Header 
             backgroundColor='#57CF87'
             back={()=>props.navigation.goBack()}

@@ -38,7 +38,6 @@ export function BuscarUsersFavoritaram(vagaId){
                         data.user = user;
                         return data;
                 }))
-                console.log('imprimindo response de usuários que favoritaram',response);
                 dispatch({type : 'SETFAVORITARAM',payload : response})
                 dispatch({type : 'LOADFAVORITARAM',payload : false})
             }
@@ -49,7 +48,6 @@ export function BuscarUsersFavoritaram(vagaId){
     }
 }
 export function BuscarMyVagasFavorites(userId){
-    console.log('imprimindo userId',userId)
     return async dispatch => {
         try {
             let find = await (await db.collection('myFavoritesVagas').doc(userId).collection('VagasFavorites').get()).docs
@@ -61,9 +59,9 @@ export function BuscarMyVagasFavorites(userId){
                     return resulVaga;
                 })
             )
-            console.log('imprimindo response de BUSCARMYVAGASFAVORITES', response);
         } catch (error) {
-            console.log(error)
+            alert(JSON.stringify(error));
+            return;
         }
     }
 }
