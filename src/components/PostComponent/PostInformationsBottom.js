@@ -3,10 +3,10 @@ import { View, Text, Dimensions,TouchableOpacity, PixelRatio } from 'react-nativ
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import IconA from 'react-native-vector-icons/AntDesign'
 import styled from '../../colors'
-
+const { width, height } = Dimensions.get('window');
 const PostInformationsBottom = (props) => {
     const sizeIcon = PixelRatio.get()*20
-    const sizePrice = PixelRatio.get()*20
+    const sizeTitle = PixelRatio.get()*10
     function ViewMapa(){
         try {
             props.navigation.navigate('MapComponent',
@@ -35,12 +35,30 @@ const PostInformationsBottom = (props) => {
             </View>
             <View style={{flexDirection:'row',alignItems:'center'}}>
                     <Text style={{marginRight:6,color:styled.padrao}}>{props.countLikes} </Text>
+                    {props.anuciante && props.disponivel ?
+                    <TouchableOpacity 
+                    onPress={props.marcarAlugada}
+                    activeOpacity={1}
+                    style={{
+                        borderWidth:1,
+                        borderColor:'#AD3451',
+                        backgroundColor:'#E45E7E',
+                        padding:4,
+                        width:width/3.6,
+                        height:height / 12.8,
+                        alignItems:'center',
+                        justifyContent:'center',
+                        borderRadius : 10
+                        }}>
+                    <Text style={{fontSize : sizeTitle,color:'#FFF',fontWeight:'900'}}>Já aluguei</Text>
+                    </TouchableOpacity>
+                   : props.anuciante && !props.disponivel ? null : 
                     <TouchableOpacity style={{marginRight:10}} onPress={props.like}>
-                    <Icon solid={props.favorite ? false : true} 
+                   <Icon solid={props.favorite ? false : true} 
                     color={styled.menos_escura}
                     selectionColor={styled.padrao} 
-                    name='bookmark' size={sizeIcon} />
-                    </TouchableOpacity>
+                    name='bookmark' size={sizeIcon} /> 
+                    </TouchableOpacity>}
             </View>
             </View>
         </View>

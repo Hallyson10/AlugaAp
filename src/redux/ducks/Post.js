@@ -316,6 +316,24 @@ export default function reducer(state = initialState, action) {
             ...state,
             post : { ...state.post, completa : action.payload}
         }
+        case 'MARCAR_COMO_ALUGADA' :
+            const position_alu = state.posts.findIndex((item)=>item.vagaId === action.payload)
+            return update(state,{
+                posts:{
+                    [position_alu]:{
+                        disponivel : {$set : false}
+                    }
+                }
+            })
+            case 'ANUNCIAR_COMO_DISPONIVEL' :
+            let position_disp = state.posts.findIndex((item)=>item.vagaId === action.payload)
+            return update(state,{
+                posts:{
+                    [position_disp]:{
+                        disponivel : {$set : true}
+                    }
+                }
+            })
         case 'LIKE' : 
         let position = state.posts.findIndex((item)=>item.vagaId === action.payload)
         let obj = state.posts.find((item)=>item.vagaId === action.payload)

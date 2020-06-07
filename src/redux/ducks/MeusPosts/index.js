@@ -130,3 +130,13 @@ export function setEndereco(endereco){
         dispatch({type : types.SETENDERECO, payload: endereco})
     }
 }
+export function MarcarComoAlugada(vagaId){
+    return dispatch => {
+        dispatch({type : 'MARCAR_COMO_ALUGADA',payload : vagaId})//marcando nos posts da linha do tempo como alugada
+    }
+}
+export function MarcarComoDisponivel(vagaId){
+    return dispatch => {
+        dispatch({type : 'ANUNCIAR_COMO_DISPONIVEL',payload : vagaId})
+    }
+}

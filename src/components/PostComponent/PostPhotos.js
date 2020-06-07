@@ -1,9 +1,10 @@
 import React,{ Component } from 'react'
 import { View, Text, ImageBackground,Image, FlatList, Dimensions,TouchableOpacity,Animated,PixelRatio} from 'react-native'
-import FastImage from 'react-native-fast-image'
 import EnviarMensage from '../subComponentes/EnviarMessage'
+import PhotoPost from './PhotoPost'
+import ButtonsPromo from './ButtonsPromo'
+const sizePrice = PixelRatio.get()*10;
 
-const sizePrice = PixelRatio.get()*10
 class PostPhotos extends Component{
    
     state = {
@@ -28,7 +29,7 @@ class PostPhotos extends Component{
         backgroundColor:'#FFF',
         borderBottomColor : '#ccc',
         borderBottomWidth:0.8}}>
-         <View style={{
+         {this.props.disponivel ?<View style={{
                 position : 'absolute',
                 top:18,
                 left:'4%',
@@ -42,8 +43,18 @@ class PostPhotos extends Component{
                 //backgroundColor:'rgba(52, 52, 52, 0.8)',
                 alignItems:'center',
                 justifyContent:'center'}}>
-                {<Text style={{color:'#fff',fontSize:sizePrice}} >R${this.props.valor} </Text>}
-                </View>
+                {<Text style={{color:'#fff',fontSize:sizePrice}} >R${parseInt(this.props.valor).toFixed()} </Text>}
+                </View> : null}
+                <ButtonsPromo
+                onPress={this.props.onPressButtonCentral}
+                postedPost={this.props.postedPost}
+                disponivel={this.props.disponivel}
+                premiumAnunciante={this.props.premiumAnunciante}
+                visitantePremmium={this.props.visitantePremmium}
+                anuciante={this.props.anuciante}
+                marcarComoDisponivel={this.props.marcarComoDisponivel}
+
+                />
         <FlatList 
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -53,32 +64,14 @@ class PostPhotos extends Component{
         onMomentumScrollEnd={this.setSelectedIndex}
         keyExtractor={item=>item.value}
         renderItem={({item})=>(
-            <View>
-                <TouchableOpacity 
-                activeOpacity={1}
-                onPress={()=>this.props.toPost(item)}
-                >
-                <FastImage
-                    style={{ width:Dimensions.get('window').width/1, 
-                    alignItems:'flex-end',
-                    paddingRight:12,
-                    paddingTop:12,
-                    height:Dimensions.get('window').width/1.1,
-                }}
-                    source={{
-                        uri: item.sucess,
-                        headers: { Authorization: 'someAuthToken' },
-                        priority: FastImage.priority.normal,
-                    }}
-                    resizeMode={FastImage.resizeMode.cover}
-            >
-               
-                {this.props.postedPost && <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                        <Text>Carregando Fotos...</Text>
-                </View>}
-            </FastImage>
-              </TouchableOpacity>          
-            </View>
+            <PhotoPost
+                toPost={()=>this.props.toPost(item)}
+                disponivel={this.props.disponivel}
+                premiumAnunciante={this.props.premiumAnunciante}
+                visitantePremmium={this.props.visitantePremmium}
+                uri = {item.sucess}
+                anuciante={this.props.anuciante}
+            />
         )}
         />
         <EnviarMensage EnviarMensage={this.props.EnviarMensage}/>

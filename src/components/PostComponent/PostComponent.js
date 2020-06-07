@@ -13,10 +13,9 @@ export default React.memo(function PostComponent(props) {
   const cliques = useSelector(state => state.post.click);
   const cliquePost = useSelector(state => state.post.clickPost)
   const user = useSelector(state => state.profile.user)
-  
   const dispatch = useDispatch();
 
-    lastTap = null;
+  lastTap = null;
 
     handleDoubleTap = () => {
         const now = Date.now();
@@ -43,25 +42,48 @@ export default React.memo(function PostComponent(props) {
           dispatch(desfavoritarPost(vagaId,user.userId));
          }
       }
+      function verificaAcesso(funcao){
+      if(props.anuciante||props.item.disponivel && (!props.anuciante && (props.premiumAnunciante || props.visitantePremmium) )){
+           funcao()
+      }else if(props.item.disponivel){
+        alert('abrindo modal para pagamento')
+      }else{
+        Toast.show('vaga já preenchida!')
+      }
+      }
    
         return (
             <View style={{backgroundColor:'#FFF',marginTop:6,marginBottom:4}}>
-              <TouchableOpacity activeOpacity={2} onPress={()=>alert('olá')}>
+              <TouchableOpacity activeOpacity={2} onPress={()=>verificaAcesso(()=>alert('olá'))}>
               <UserPostCabecalho
               user = {props.user}
               data={props.item.createAt}
               completa={props.item.completa}
+              anuciante={props.anuciante}
+              premiumAnunciante={false}
+              visitantePremmium={false}
+              disponivel={props.item.disponivel}
               />
               </TouchableOpacity>
               <PostPhotos 
               valor={props.item.completa ? props.item.valorTotal : props.item.valorIndividual}
               navigation={props.navigation}
               images={props.item.images}
-              toPost={(index)=>
-                props.navigation.navigate('ImageTelaGrande',
-                {images:props.item.images,navigation:props.navigation,index : props.item.images.indexOf(index)})}
+              disponivel={props.item.disponivel}
+              //premiumAnunciante={props.premiumAnunciante}
+              //visitantePremmium={props.visitantePremmium}
+              premiumAnunciante={false}
+              visitantePremmium={false}
+              toPost={()=>verificaAcesso(()=>props.navigation.navigate('ProfileVaga',{item : props.item}))}
+              onPressButtonCentral={()=>verificaAcesso(()=>alert('abrindo o modal diretamente para acesso'))}
+              // toPost={(index)=>
+              //   props.navigation.navigate('ImageTelaGrande',
+              //   {images:props.item.images,navigation:props.navigation,index : props.item.images.indexOf(index)})}
               EnviarMensage={props.EnviarMensage}
               postedPost={props.postedPost}
+              anuciante={props.anuciante}
+              marcarComoDisponivel={props.anuciante && !props.item.disponivel ? props.marcarComoDisponivel : null}
+
                />
               <PostInformationsBottom 
               completa={props.item.completa}
@@ -74,12 +96,19 @@ export default React.memo(function PostComponent(props) {
               lat={props.item.endereco.lat}
               navigation={props.navigation}
               //like={()=>CheckConnectivity()}
-              like={()=>likar(props.item.vagaId)}
+              like={props.item.disponivel ? ()=>likar(props.item.vagaId) :()=> Toast.show('Vaga já preenchida')}
+              marcarAlugada={props.anuciante && props.item.disponivel ? props.marcarComoAlugada : null}
               favorite={props.item.favorite}
+              anuciante={props.anuciante}
+              disponivel={props.item.disponivel}
                />
-               <TouchableOpacity onPress={()=>{props.navigation.navigate('InteressadosPost',
-               {vagaId : props.item.vagaId})}}>
-               <QtdCurtiramPost countLikes={props.item.countLikes} />
+               <TouchableOpacity onPress={()=>
+               verificaAcesso(()=>props.navigation.navigate('InteressadosPost',
+                {vagaId : props.item.vagaId}))}>
+               <QtdCurtiramPost
+                countLikes={props.item.countLikes}
+                
+                />
                </TouchableOpacity>
             </View>
         )

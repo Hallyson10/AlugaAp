@@ -50,7 +50,11 @@ const UserPostCabecalho = (props) => {
                    {renderImage()}
                     <View>
                     <Text style={[styles.namesDestaque,{color:styled.padrao_escura,opacity:0.9}]}> 
-                    {props.user.username.split(' ').slice(0, 2).join(' ')} </Text>
+                    {
+                        !props.anuciante && (!props.disponivel || !props.premiumAnunciante && !props.visitantePremmium) ? 'Anunciante':
+                        props.user.username.split(' ').slice(0, 2).join(' ')
+                        
+                    } </Text>
                     <View style={{flexDirection:'row',alignItems:'center',marginTop:-2,paddingLeft:4}}>
                     <Text style={[styles.subNames,{color:styled.padrao}]}> 
                     {props.completa ? "Imóvel Completo" : "Vaga Compartilhada"} 
