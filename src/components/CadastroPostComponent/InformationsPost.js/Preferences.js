@@ -26,12 +26,6 @@ const Preferences = () => {
                     ativo={preferenciaSexo === 'H' ? true : false}
                     onPress={()=>dispatch(tipoSexoPreferencia('H'))}
                     />
-                    <ButtonRoundOptions
-                    preference='Todos'
-                    ativo={preferenciaSexo === 'T' ? true : false}
-                    onPress={()=>dispatch(tipoSexoPreferencia('T'))}
-                    />
-
             </View>
         </View>
     )

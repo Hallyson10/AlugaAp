@@ -1,20 +1,18 @@
-
 import React, {PureComponent} from 'react';
 import {Provider} from 'react-redux';
-import {Alert,View,Text} from 'react-native'
-import 'react-native-gesture-handler'
-import Navegador from './src/navigator'
-import store from './src/redux/store/index'
-import firebase from './src/Service/index'
-import TelaInicial from './src/pages/TelaInicial/Index' 
+import {Alert,View,Text} from 'react-native';
+import 'react-native-gesture-handler';
+import Navegador from './src/navigator';
+import store from './src/redux/store/index';
+import firebase from './src/Service/index';
+import PerfilVaga from './src/pages/PerfilVaga/ProfileVaga';
 import type { RemoteMessage,Notification, NotificationOpen } from 'react-native-firebase';
-import ConfigPerfil from './src/pages/ConfiguracoesUsuario/Index'
+
 export default class App extends PureComponent{
   async componentDidMount() {
     this.checkPermission();
     this.createNotificationListeners();
   }
-  
     //1
   async checkPermission() {
     const enabled = await firebase.messaging().hasPermission();
@@ -90,14 +88,13 @@ export default class App extends PureComponent{
   // .android.setPriority(firebase.notifications.Android.Priority.Max)
   // .setSound('default');
   
-  
   firebase.notifications().displayNotification(notification)
   }
   render(){
     return (
-    <Provider store={store}>
-     <Navegador/>
-     </Provider>  
+      <Provider store={store}>
+          <Navegador/>
+      </Provider>   
   );
 }
 };

@@ -23,9 +23,9 @@ const ImageTelaGrande = (props) => {
         const y = new Animated.Value(0);
         const onScroll = Animated.event([{ nativeEvent : { contentOffset : { y } } } ],{ useNativeDriver : true})
     return (
-        <View style={{flex:1,backgroundColor:'#F0FFF0'}}>
-            <Header back={()=>props.navigation.goBack()} backgroundColor='#F0FFF0' title='' color='black' />
-            <StatusBar barStyle='dark-content' backgroundColor='#F0FFF0' showHideTransition='fade' animated />
+        <View style={{flex:1,backgroundColor:'#051E0B'}}>
+            <Header back={()=>props.navigation.goBack()} backgroundColor='#051E0B' title='' color='#FFF' />
+            <StatusBar barStyle='dark-content' backgroundColor='#051E0B' showHideTransition='fade' animated />
             <View style={{
                 position : 'absolute',
                 top:64,

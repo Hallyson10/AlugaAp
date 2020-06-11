@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import MapView,{ PROVIDER_GOOGLE, Callout } from 'react-native-maps'
+import MapView from './Mapa/index'
 import styleMap from '../styles/StyleMap'
 import Header from '../components/subComponentes/Header'
 export default function MapComponent(props){
@@ -17,43 +17,12 @@ export default function MapComponent(props){
                   right={numero} 
                   title={`${rua.split(' ').slice(0, 3).join(' ')}...`} backgroundColor='#07000F'/>
                 <MapView 
-                loadingEnabled={true}
-                accessibilityViewIsModal
-                showsCompass
-                showsPointsOfInterest
-                initialRegion={{
-                    latitude: lat,
-                    longitude: long,
-                    latitudeDelta: 0.0082,
-                    longitudeDelta: 0.0081,
-                  }}
-                region={{
-                    latitude: lat,
-                    longitude: long,
-                    latitudeDelta: 0.0082,
-                    longitudeDelta: 0.0081
-                }}
-                customMapStyle={styleMap}
-                style={styles.mapView}
-                >
-                    <MapView.Marker
-                      coordinate={{latitude: lat,longitude: long}}
-                      title={rua}
-                      description={`número ${numero}`}
-                    />
-                </MapView>
-                
+                lat = {lat}
+                long = {long}
+                numero={numero}
+                rua={rua}
+                />
                 </View>
             )
 
 }
-
-const styles = StyleSheet.create({
-    mapView :{
-        flex:1,
-        left :0,
-        top:0,
-        bottom:0,
-        right:0
-        }
-})

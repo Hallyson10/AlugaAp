@@ -60,8 +60,8 @@ export default React.memo(function PostComponent(props) {
               data={props.item.createAt}
               completa={props.item.completa}
               anuciante={props.anuciante}
-              premiumAnunciante={false}
-              visitantePremmium={false}
+              premiumAnunciante={props.premiumAnunciante}
+              visitantePremmium={props.visitantePremmium}
               disponivel={props.item.disponivel}
               />
               </TouchableOpacity>
@@ -72,8 +72,8 @@ export default React.memo(function PostComponent(props) {
               disponivel={props.item.disponivel}
               //premiumAnunciante={props.premiumAnunciante}
               //visitantePremmium={props.visitantePremmium}
-              premiumAnunciante={false}
-              visitantePremmium={false}
+              premiumAnunciante={props.premiumAnunciante}
+              visitantePremmium={props.visitantePremmium}
               toPost={()=>verificaAcesso(()=>props.navigation.navigate('ProfileVaga',{item : props.item}))}
               onPressButtonCentral={()=>verificaAcesso(()=>alert('abrindo o modal diretamente para acesso'))}
               // toPost={(index)=>
@@ -87,6 +87,9 @@ export default React.memo(function PostComponent(props) {
                />
               <PostInformationsBottom 
               completa={props.item.completa}
+              individual={props.item.individual}
+              sala={props.item.sala}
+              tipoImovel={props.item.tipoImovel}
               cidade={props.item.endereco.cidade}
               rua={props.item.endereco.rua}
               numero={props.item.endereco.numEndereco}

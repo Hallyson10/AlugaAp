@@ -23,7 +23,8 @@ const PostInformationsBottom = (props) => {
             <View>
             <View style={{flexDirection:'row',alignItems:'center',marginTop:12}}>
             <Text style={{fontSize:12,marginRight:4,fontWeight:'600',color:styled.menos_escura}}> 
-            {props.completa ? "Quarto Completo" : "Quarto Compartilhado"} </Text>
+            {props.completa ? props.tipoImovel : props.individual ? "Quarto Completo" : 
+            props.sala ? "Sala" : 'Quarto Compartilhado'} </Text>
             </View>
             <TouchableOpacity onPress={()=>ViewMapa()}>
             <View style={{flexDirection:'row',alignItems:'center'}}>

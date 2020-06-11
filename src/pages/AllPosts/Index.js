@@ -71,7 +71,7 @@ const Index = (props) => {
                 keyExtractor={item=>item.vagaId}
                 //horizontal
                 //pagingEnabled
-                ListHeaderComponent={<ReturnPost/>}
+                //ListHeaderComponent={<ReturnPost/>}
                 //onEndReached={temp}
                 onEndReachedThreshold={0.7}
                 initialNumToRender={10}
@@ -79,6 +79,8 @@ const Index = (props) => {
                 refreshing={false}
                 renderItem={({ item }) => <PostComponent 
                 item = {item}
+                premiumAnunciante={item.user.premium}
+                visitantePremmium={user.premium}
                 EnviarMensage = {()=>solicitar(item,user.userId)}
                 like = {()=>likar(item.vagaId)}
                 marcarComoAlugada={()=>{

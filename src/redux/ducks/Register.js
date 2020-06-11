@@ -29,7 +29,7 @@ const initialState = {
         createAt : new Date().toUTCString(),
         idade : 0,
         receiveNotification : true,
-        pacotes : {premmium : false, master : false},
+        premium : false,
         statusOnline : false,
         isBloqueado : false,
         fotos : [],

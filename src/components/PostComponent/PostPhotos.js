@@ -55,6 +55,11 @@ class PostPhotos extends Component{
                 marcarComoDisponivel={this.props.marcarComoDisponivel}
 
                 />
+                <View style={{opacity: this.props.anuciante && !this.props.disponivel ? 0.4 : 
+                this.props.anuciante && this.props.disponivel ? 
+                1 : this.props.disponivel 
+                && !this.props.premiumAnunciante && !this.props.visitantePremmium ? 0.2 :
+                !this.props.disponivel ? 0.1 : 1}}>
         <FlatList 
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -74,9 +79,10 @@ class PostPhotos extends Component{
             />
         )}
         />
+        </View>
         <EnviarMensage EnviarMensage={this.props.EnviarMensage}/>
         </View>
-        <View style={{height:20,width:Dimensions.get('window').width,position:'absolute',bottom:160,display:"flex"
+        <View style={{height:20,width:Dimensions.get('window').width,position:'absolute',bottom:130,display:"flex"
                 ,flexDirection:'row',alignItems:'center',justifyContent:'center'
                 }}>
                     {this.props.images.map((image, i)=>(

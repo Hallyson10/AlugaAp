@@ -8,8 +8,9 @@ import {
   setGaragemC,setForrado,
   setFogao,setEnergia,setWifi,
   setCeramica,setAnimais,setAgua} from '../../../redux/ducks/Posts/CadastroPost'
+  const width = Dimensions.get('window').width/2.6;
+
 export default function Comodies() {
-    const width = Dimensions.get('window').width/2.6;
     const geladeira = useSelector(state=>state.post.post.comodides.geladeira);
     const fogao = useSelector(state=>state.post.post.comodides.fogao);
     const garagemM = useSelector(state=>state.post.post.comodides.garagemM);

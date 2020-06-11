@@ -21,7 +21,7 @@ const initialState = {
         preferenciaSexo : '',
         compartilhada : false,
         completa : false,
-        individual : false,
+        individual : false,//Quarto individual
         sala : false,
         disponivel : true,
         valor : '',

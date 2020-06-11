@@ -77,11 +77,21 @@ const initialState = {
     cepErro : false,
     loadLongLat : false,
     postedPost : false,
-    postReserva : {}
+    postReserva : {},
+    postPerfil : {},
+    loadingPostPerfil : false
 };
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
+        case 'SETA_POST_PROJETO' : return {
+            ...state,
+            postPerfil : action.payload
+        }
+        case 'LOADING_POST_PERFIL' : return {
+            ...state,
+            loadingPostPerfil : action.payload
+        }
         case 'POSTRESERVA' : return {
             ...state,
             postReserva : action.payload
@@ -469,6 +479,10 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 filtroTypeVaga : action.payload //evitar que aconteça o puxar mais posts do flatlist
             }
+        case 'LOGOUT' : return {
+            ...state,
+            ...initialState
+        }
         default:
             return state;
     }
@@ -734,6 +748,35 @@ async function verifyUsersFavoritaram(vagaId,userId){
         return true;
     }else{
         return false;
+    }
+}
+export const FindPost = (vagaId) => {
+    return dispatch => {
+        dispatch({type : 'LOADING_POST_PERFIL',payload:true});
+        const userId = firebase.auth().currentUser.uid
+        try {
+            async function busca(){
+                const req = await db.collection('vagasCompartilhadas').where('vagaId','==',vagaId).limit(1)
+                const res = await req.get()
+                const data = await Promise.all(res.docs.map(async(item)=>{
+                    const vaga = item.data()
+                    let user = await finduser(vaga.idAutor);
+                    vaga.user = user;
+                    const images = await findImages(vagaId);
+                    let favorite = await verifyUsersFavoritaram(vaga.vagaId,userId);
+                    vaga.favorite = favorite;
+                    vaga.images = images;
+                    return vaga;
+                }))
+                dispatch({type : 'SETA_POST_PROJETO',payload : data[0]});
+                dispatch({type : 'LOADING_POST_PERFIL',payload : false})
+            }
+            busca()
+            return true;
+        } catch (error) {
+            dispatch({type : 'LOADING_POST_PERFIL',payload : false})
+            return false;
+        }
     }
 }
 export const FindPosts = (userId,lastItem) => {

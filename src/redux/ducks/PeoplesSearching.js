@@ -71,6 +71,10 @@ export default function reducer(state = initialState, action) {
             descricao : '',
             urgente : false
         }
+        case 'LOGOUT' : return {
+            ...state,
+            ...initialState
+        }
         default:
             return state;
     }

@@ -27,7 +27,7 @@ const initialState = {
         receiveNotification : true,
         pacotes : {premmium : true, master : true},
         statusOnline : false,
-        premmium : false,
+        premium : false,
         premmiumMaster : false,
         isBloqueado : false,
         fotos : [],
@@ -55,7 +55,7 @@ export default function reducer(state = initialState, action) {
         }
         case Types.LOGOUT : return {
             ...state,
-            user : {...initialState.user}
+            ...initialState
         }
         case Types.SELECIONAFOTO : return {
             ...state,
