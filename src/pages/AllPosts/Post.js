@@ -40,7 +40,7 @@ export default function Posts(props){
     
 
         return (
-            <View style={{flex:1,backgroundColor:'#F1EDED'}}>
+            <View style={{flex:1,backgroundColor:'#DDDDDD'}}>
               <StatusBar backgroundColor='#F9FFF0' />
               <InputSearch  
               optionSearch={(cidade)=>this.optionSearch(cidade)}

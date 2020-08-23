@@ -40,7 +40,7 @@ const initialState = {
         },
         images : [],
         cidadeComparator : '',
-        descricao : 'kkk',
+        descricao : '',
         preferenciaSexo : '',
         qtdVagas : 1,
         qtdQuarto : 0,
@@ -51,7 +51,7 @@ const initialState = {
         completa : false,
         individual : false,
         sala : false,
-        tipoImovel : '',
+        tipoImovel : 'casa',
         disponivel : true,
         valorTotal : '',
         valorIndividual : 0,
@@ -353,7 +353,11 @@ export default function reducer(state = initialState, action) {
                         countLikes : {$set : obj.countLikes - 1},
                         favorite :{$set : true}
                     }
+                },
+                postPerfil:{
+                    favorite :{$set : true}
                 }
+                
             })
         case 'DESLIKE' : 
         let posicion = state.posts.findIndex((item)=>item.vagaId === action.payload)
@@ -364,6 +368,9 @@ export default function reducer(state = initialState, action) {
                         countLikes : {$set : objt.countLikes + 1},
                         favorite :{$set : false}
                     }
+                },
+                postPerfil:{
+                    favorite :{$set : false}
                 }
             })
         case 'LOADFINDPOSTS' : return {
@@ -748,6 +755,11 @@ async function verifyUsersFavoritaram(vagaId,userId){
         return true;
     }else{
         return false;
+    }
+}
+export const setaPost = (post) => {
+    return dispatch => {
+        dispatch({type : 'SETA_POST_PROJETO',payload : post});
     }
 }
 export const FindPost = (vagaId) => {

@@ -14,6 +14,7 @@ import ModalButton from '../../components/ModalUsersSearching/ModalButtom'
     function onRefresh(){
         dispatch(FindPeoplesSearching())
     }
+    
     function cabecalho(){
         return(
             <View style={{paddingLeft:16,backgroundColor:'#fff',paddingRight:14}}>

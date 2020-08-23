@@ -1,7 +1,8 @@
 import React,{useEffect,useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { View, Text,TouchableOpacity } from 'react-native'
+import { View, Text,TouchableOpacity,Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+const { height } = Dimensions.get('window')
 const EnviarMessage = (props) => {
     const [sendMessage,setSendMensage] = useState(false);
 
@@ -13,7 +14,7 @@ const EnviarMessage = (props) => {
         <>
             <TouchableOpacity activeOpacity={2} onPress={()=> enviarMensagem()}>
         <View style={{
-            height:38,
+            height:height/12.9,
             backgroundColor:sendMessage  ?  "#F0E478" : 'rgba(87, 207, 135, 0.9)',
             justifyContent:'center',
             paddingLeft:12,

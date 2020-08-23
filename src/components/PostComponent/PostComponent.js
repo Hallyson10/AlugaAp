@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { Text, StyleSheet, View, Button,FlatList,TouchableOpacity,Dimensions,NetInfo} from 'react-native'
 import { useSelector , useDispatch } from 'react-redux'
 import PostPhotos from './PostPhotos'
@@ -8,32 +8,25 @@ import QtdCurtiramPost from './QtdCurtiramPost';
 import { favoritarPost, desfavoritarPost } from '../../redux/ducks/Posts/Favorites'
 import { like, deslike } from '../../redux/ducks/Post'
 import Toast from 'react-native-simple-toast';
-
 export default React.memo(function PostComponent(props) {
   const cliques = useSelector(state => state.post.click);
   const cliquePost = useSelector(state => state.post.clickPost)
   const user = useSelector(state => state.profile.user)
   const dispatch = useDispatch();
+  const [countLike,setCountLike] = useState(false);
 
   lastTap = null;
-
-    handleDoubleTap = () => {
-        const now = Date.now();
-        const DOUBLE_PRESS_DELAY = 300;
-        if (this.lastTap && (now - this.lastTap) < DOUBLE_PRESS_DELAY) {
-           //chama a função após dois cliques rápidos
-        } else {
-          this.lastTap = now;
-          return false
-        }
-      }
+    useEffect(()=>{
+        setCountLike(props.item.favorite);
+    },[])
       
        async function likar(vagaId){
          if(cliques === 0 && props.item.favorite){
             dispatch(deslike(vagaId))
-            Toast.show('Adicionado aos favoritos')
+            setCountLike(false)
           }else{
             dispatch(like(vagaId));
+            setCountLike(true);
             Toast.show('Removido dos favoritos')
          }
          if(cliquePost === 0 && props.item.favorite){
@@ -42,7 +35,7 @@ export default React.memo(function PostComponent(props) {
           dispatch(desfavoritarPost(vagaId,user.userId));
          }
       }
-      function verificaAcesso(funcao){
+      async function verificaAcesso(funcao){
       if(props.anuciante||props.item.disponivel && (!props.anuciante && (props.premiumAnunciante || props.visitantePremmium) )){
            funcao()
       }else if(props.item.disponivel){
@@ -54,7 +47,6 @@ export default React.memo(function PostComponent(props) {
    
         return (
             <View style={{backgroundColor:'#FFF',marginTop:6,marginBottom:4}}>
-              <TouchableOpacity activeOpacity={2} onPress={()=>verificaAcesso(()=>alert('olá'))}>
               <UserPostCabecalho
               user = {props.user}
               data={props.item.createAt}
@@ -63,8 +55,12 @@ export default React.memo(function PostComponent(props) {
               premiumAnunciante={props.premiumAnunciante}
               visitantePremmium={props.visitantePremmium}
               disponivel={props.item.disponivel}
+              onPress={()=>{
+                if(!props.anuciante){
+                  verificaAcesso(()=>props.navigation.navigate('UsuarioVisitado',{user : props.user}))
+                }
+              }}
               />
-              </TouchableOpacity>
               <PostPhotos 
               valor={props.item.completa ? props.item.valorTotal : props.item.valorIndividual}
               navigation={props.navigation}
@@ -74,7 +70,7 @@ export default React.memo(function PostComponent(props) {
               //visitantePremmium={props.visitantePremmium}
               premiumAnunciante={props.premiumAnunciante}
               visitantePremmium={props.visitantePremmium}
-              toPost={()=>verificaAcesso(()=>props.navigation.navigate('ProfileVaga',{item : props.item}))}
+              toPost={()=>verificaAcesso(props.toPerfilVaga)}
               onPressButtonCentral={()=>verificaAcesso(()=>alert('abrindo o modal diretamente para acesso'))}
               // toPost={(index)=>
               //   props.navigation.navigate('ImageTelaGrande',
@@ -83,7 +79,7 @@ export default React.memo(function PostComponent(props) {
               postedPost={props.postedPost}
               anuciante={props.anuciante}
               marcarComoDisponivel={props.anuciante && !props.item.disponivel ? props.marcarComoDisponivel : null}
-
+              individual={props.item.individual}
                />
               <PostInformationsBottom 
               completa={props.item.completa}
@@ -101,18 +97,18 @@ export default React.memo(function PostComponent(props) {
               //like={()=>CheckConnectivity()}
               like={props.item.disponivel ? ()=>likar(props.item.vagaId) :()=> Toast.show('Vaga já preenchida')}
               marcarAlugada={props.anuciante && props.item.disponivel ? props.marcarComoAlugada : null}
-              favorite={props.item.favorite}
+              favorite={countLike}
               anuciante={props.anuciante}
               disponivel={props.item.disponivel}
                />
-               <TouchableOpacity onPress={()=>
+               {props.item.completa || props.anuciante ? <TouchableOpacity onPress={()=>
                verificaAcesso(()=>props.navigation.navigate('InteressadosPost',
                 {vagaId : props.item.vagaId}))}>
                <QtdCurtiramPost
                 countLikes={props.item.countLikes}
                 
                 />
-               </TouchableOpacity>
+               </TouchableOpacity> : null}
             </View>
         )
     

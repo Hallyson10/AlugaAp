@@ -8,7 +8,7 @@ const Descricao = (props) => {
     <>
     <View style={{backgroundColor:'#FFF',height:height/3.4,maxHeight:height/2.8}}>
     <Text style={styles.textPrincipais}>Descricao</Text>
-    <View style={{backgroundColor:'#F2F2F2',borderColor:'#C4C4C4',borderRadius:12,borderWidth:1,flex:1,padding:10,marginLeft:18,marginRight:18}}>
+    <View style={{backgroundColor:'#F2F2F2',borderRadius:8,flex:1,padding:10,marginLeft:18,marginRight:18}}>
         <Text style={{color : '#838B84',fontSize : sizeText * 10,textAlign:'justify'}}>{props.descricao}</Text>
     </View>
     </View>

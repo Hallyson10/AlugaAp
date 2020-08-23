@@ -33,10 +33,10 @@ export default function Profile(props){
                 <SafeAreaView style={{paddingTop:20,flex:1,backgroundColor:'#FFF'}}>
                 <ProfileComponent 
                 openConfig={()=>props.navigation.navigate('ConfigPerfil')}
-                onPressI={()=>props.navigation.navigate('RedesSociais',
-                    {link:`https://www.instagram.com/${user.linkInstagram}/`})}
-                onPressF={()=>props.navigation.navigate('RedesSociais',
-                    {link:`https://www.facebook.com/${user.linkFacebook}`})}
+                onPressI={user.linkInstagram !== null ?()=>props.navigation.navigate('RedesSociais',
+                     {link:`https://www.instagram.com/${user.linkInstagram}/`}):null}
+                onPressF={user.linkFacebook !== null ? ()=>props.navigation.navigate('RedesSociais',
+                     {link:`https://www.facebook.com/${user.linkFacebook}`}) : null}
                 props={props}
                 onPress={alterarFoto}
                 isPerfil={true}

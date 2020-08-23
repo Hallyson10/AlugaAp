@@ -102,7 +102,6 @@ export function desfavoritarPost(vagaId,userId){
     }
 }
 export function favoritarPost(vagaId,userId){
-    console.log(userId)
         return dispatch => {
             dispatch({type:"CLIQUEPOST"})
             try {

@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, Text,Dimensions } from 'react-native'
+import { View, Text,Dimensions,TouchableOpacity } from 'react-native'
 import FastImage from 'react-native-fast-image'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import moment from 'moment'
-import styled from '../../colors'
 import 'moment-timezone';
 import 'moment/locale/pt-br';
 moment.tz.setDefault('ISO');
@@ -44,29 +43,7 @@ const UserPostCabecalho = (props) => {
         }
     }
         return (
-            <View style={styles.cabecalho}>
-                    <View style={{justifyContent:'space-between',flexDirection:'row',alignItems:'center'}}>
-                    <View style={{flexDirection:'row',alignItems:'center'}}>
-                   {renderImage()}
-                    <View>
-                    <Text style={[styles.namesDestaque,{color:styled.padrao_escura,opacity:0.9}]}> 
-                    {
-                        !props.anuciante && (!props.disponivel || !props.premiumAnunciante && !props.visitantePremmium) ? 'Anunciante':
-                        props.user.username.split(' ').slice(0, 2).join(' ')
-                        
-                    } </Text>
-                    <View style={{flexDirection:'row',alignItems:'center',marginTop:-2,paddingLeft:4}}>
-                    <Text style={[styles.subNames,{color:styled.padrao}]}> 
-                    {props.completa ? "Imóvel Completo" : "Vaga Compartilhada"} 
-                    </Text>
-                    </View>
-                    </View>
-                    </View>
-                    <View style={{paddingRight:4}}>
-                        <Text style={[styles.sub,{color:styled.padrao,textAlign:'auto'}]}>{moment(props.data).fromNow()}</Text>
-                    </View>
-                    </View>
-            </View>
+            <></>
         )
 
 }

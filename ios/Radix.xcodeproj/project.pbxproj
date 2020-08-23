@@ -38,6 +38,8 @@
 		E09A747E1AD241748C7352B5 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF1EBEB65D4446EB80AF5750 /* SimpleLineIcons.ttf */; };
 		EDFE87A964307B183E820585 /* libPods-Radix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A530035FCD0F31755FE757 /* libPods-Radix.a */; };
 		F52081982D1A42689DB464B2 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6B87CAABFE9490CBD6E4E9E /* Fontisto.ttf */; };
+		71C57BB799C24220ADCFB1B0 /* Play-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FAB9CB4D4D34853986158C7 /* Play-Bold.ttf */; };
+		D0F3DE9478064E7C81B48EA7 /* Play-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3B25E9250C04ECE9607EA34 /* Play-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +106,8 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EF1EBEB65D4446EB80AF5750 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		7FAB9CB4D4D34853986158C7 /* Play-Bold.ttf */ = {isa = PBXFileReference; name = "Play-Bold.ttf"; path = "../assets/fonts/Play-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F3B25E9250C04ECE9607EA34 /* Play-Regular.ttf */ = {isa = PBXFileReference; name = "Play-Regular.ttf"; path = "../assets/fonts/Play-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +262,8 @@
 				1E213B649EE84FA18BFFFB27 /* rubicon-icon-font.ttf */,
 				EF1EBEB65D4446EB80AF5750 /* SimpleLineIcons.ttf */,
 				CA658FC8C79A44E2A23CB116 /* Zocial.ttf */,
+				7FAB9CB4D4D34853986158C7 /* Play-Bold.ttf */,
+				F3B25E9250C04ECE9607EA34 /* Play-Regular.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -423,6 +429,8 @@
 				D77D61825D32401DA66D0B39 /* rubicon-icon-font.ttf in Resources */,
 				E09A747E1AD241748C7352B5 /* SimpleLineIcons.ttf in Resources */,
 				CB4CAB3FB8BE49E6B6D5743C /* Zocial.ttf in Resources */,
+				71C57BB799C24220ADCFB1B0 /* Play-Bold.ttf in Resources */,
+				D0F3DE9478064E7C81B48EA7 /* Play-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

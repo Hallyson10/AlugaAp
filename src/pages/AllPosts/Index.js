@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { View, Text, FlatList, Animated,StatusBar } from 'react-native'
 import PostComponent from '../../components/PostComponent/PostComponent'
-import { FindPosts, FindMaisPosts} from '../../redux/ducks/Post'
+import { FindPosts, FindMaisPosts,setaPost} from '../../redux/ducks/Post'
 import { FilterPosts } from '../../redux/ducks/Posts/Filters'
 import { MarcarComoAlugada,MarcarComoDisponivel } from '../../redux/ducks/MeusPosts/index'
 import {favoritarPost} from '../../redux/ducks/Posts/Favorites'
@@ -12,6 +12,7 @@ import Toast from 'react-native-simple-toast'
 let time = null
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 const Index = (props) => {
+    
     const posts = useSelector(state => state.post.posts);
     const postedPost = useSelector(state => state.post.postedPost);
     const postReserva = useSelector(state => state.post.postReserva);
@@ -28,7 +29,6 @@ const Index = (props) => {
             dispatch(favoritarPost(vagaId,user.userId));
         }
     }
-
     function solicitar(item,id_solicitante){
         //passando as informações da vaga para mostrar nas solicitações pendentes e aceitas
         let {
@@ -79,11 +79,15 @@ const Index = (props) => {
                 refreshing={false}
                 renderItem={({ item }) => <PostComponent 
                 item = {item}
+                toPerfilVaga={async()=>{
+                    props.navigation.navigate('ProfileVaga',{item:item})
+                    await dispatch(setaPost({}))
+                    }}
                 premiumAnunciante={item.user.premium}
                 visitantePremmium={user.premium}
-                EnviarMensage = {()=>solicitar(item,user.userId)}
-                like = {()=>likar(item.vagaId)}
-                marcarComoAlugada={()=>{
+                EnviarMensage = {() => solicitar(item,user.userId)}
+                like = {() => likar(item.vagaId)}
+                marcarComoAlugada={() => {
                     dispatch(MarcarComoAlugada(item.vagaId))
                     Toast.show('Alugada!')
                     }}

@@ -1,14 +1,17 @@
 
 import { StyleSheet } from 'react-native'
 
-export const Texts = StyleSheet.create({
+
+export default Texts = StyleSheet.create({
     textButton : {
         color : "#fff",
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily : 'Play-Bold'
       },
     textIntroduction : {
       color : "#fff",
       fontWeight: 'bold',
-      fontSize : 18
+      fontSize : 18,
+      fontFamily : 'Play-Bold'
     }
 })

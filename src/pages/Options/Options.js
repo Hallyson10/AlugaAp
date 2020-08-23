@@ -25,7 +25,7 @@ export default function Options (props) {
         }
     }
     function TypeVagaCompleta(){
-        if(imagesPost.length > 3){
+        if(imagesPost.length >= 3){
             dispatch(typeVagaCompleta(true));
             dispatch(typeVagaCompartilhada(false));
             props.navigation.navigate('newPost',{type:'completa'});

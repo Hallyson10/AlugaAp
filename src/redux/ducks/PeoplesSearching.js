@@ -188,7 +188,10 @@ export const StartSearch = (data) => {
                 tipoBuscaCompartilhada  : data.tipoBuscaCompartilhada ,
                 sexo : data.sexo
             });
-            await bd.collection('users').doc(data.userId).update({"user.qtdBuscas" : firebase.firestore.FieldValue.increment(1)})
+            await bd.collection('users').doc(data.userId)
+            .update({
+                "user.cidadeBusca" : data.citySearching,
+            "user.qtdBuscas" : firebase.firestore.FieldValue.increment(1)})
             let cidadeComparator = mCidade
             let cidade = data.citySearching
             await bd.collection('filterNames').doc(mCidade).set({

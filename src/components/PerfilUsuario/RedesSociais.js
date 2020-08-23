@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { View, Text , Dimensions, PixelRatio,Clipboard, TouchableOpacity,StyleSheet,TextInput } from 'react-native'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/AntDesign'
@@ -8,11 +8,13 @@ const RedesSociais = (props) => {
         await Clipboard.setString(text)
         Toast.show('copiado')
     }
+    
     return (
         <View style={{
             height:Dimensions.get('window').height/4,
             padding:10,
-            width:styles.width
+            width:styles.width,
+            alignSelf:'center'
             }}>
             <Text style={styles.texts}
             >Redes Sociais</Text>
@@ -27,9 +29,12 @@ const RedesSociais = (props) => {
                  value={props.linkInstagram}
                  onChangeText={(text)=>props.onChangeTextInstagram(text)}
                  /> : 
-                <TouchableOpacity onPress={props.onPressI} onLongPress={()=>copiarText(props.linkInstagram)} style={{flex:1}}>
+                 props.linkInstagram !== null ?
+                <TouchableOpacity onPress={props.onPressI}
+                 onLongPress={()=>copiarText(props.linkInstagram)} style={{flex:1}}>
                 <Text>{props.linkInstagram}</Text>
                 </TouchableOpacity>
+                :null
                 }
                 </View>
                 <View style={{flexDirection:'row',alignItems:'center',flex:1}}>
@@ -41,10 +46,11 @@ const RedesSociais = (props) => {
                 value={props.linkFacebook}
                 onChangeText={(text)=>props.onChangeTextFacebook(text)}
                 /> 
-                : 
-                <TouchableOpacity onPress={props.onPressF} onLongPress={()=>copiarText(props.linkFacebook)} style={{flex:1}}>
+                : props.linkFacebook !== null?
+                <TouchableOpacity onPress={props.onPressF}
+                 onLongPress={()=>copiarText(props.linkFacebook)} style={{flex:1}}>
                 <Text>{props.linkFacebook}</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> : null
                 }
                 </View>
             </View>

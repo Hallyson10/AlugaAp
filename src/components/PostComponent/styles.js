@@ -2,18 +2,21 @@ import { StyleSheet ,Dimensions,PixelRatio} from 'react-native'
 
 export default styles = StyleSheet.create({
     namesDestaque : {
+        fontFamily : 'Play-Bold',
         fontWeight : 'bold',
         fontSize:PixelRatio.get() * 10, 
         textAlign:'center',
-        opacity : 0.9
+        opacity : 0.9,
     },
     subNames : {
         fontWeight : 'normal',
-        fontSize : 14
+        fontSize : 14,
+        fontFamily : 'Play-Bold',
     },
     sub : {
         fontWeight : 'normal',
-        fontSize : 12
+        fontSize : 12,
+        fontFamily : 'Play-Bold',
     },
     cabecalho : {
         borderTopWidth:0.4 ,

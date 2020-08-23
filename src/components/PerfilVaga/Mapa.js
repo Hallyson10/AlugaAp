@@ -7,6 +7,12 @@ const Mapa = (props) => {
   return (
     <>
     <TouchableOpacity
+    onPress={()=>props.navigation.navigate('MapComponent',{
+    lat:props.lat,
+    long:props.long,
+    rua : props.rua,
+    numero:props.numero,
+    })}
     activeOpacity={1}
     style={{backgroundColor:'#FFF',height:height/2.2,flex:1}}>
     <Text style={styles.textPrincipais}>Localização</Text>

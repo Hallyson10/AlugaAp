@@ -16,13 +16,13 @@ const Informacoes = (props) => {
         activeOpacity={1}
         ativo={true}
         width={width} height={42}
-        backgroundColor={props.comodides.geladeira ?'#A1E5BC' :'#EBDD5E'}
+        backgroundColor={props.comodides.geladeira ?'#A1E5BC' :'#F0FFF0'}
         title={props.comodides.geladeira ? 'Geladeira' : ''} />
         <ButtonOption 
         activeOpacity={1}
         ativo={true}
         width={width} height={42}
-        backgroundColor={props.comodides.ceramica ?'#A1E5BC' :'#EBDD5E'}
+        backgroundColor={props.comodides.ceramica ?'#A1E5BC' :'#F0FFF0'}
         title={props.comodides.ceramica ? 'Cerâmica' : ''} />
       </View>
       <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-around'}}>
@@ -31,7 +31,7 @@ const Informacoes = (props) => {
         ativo={true}
         width={width} height={42}
         backgroundColor={props.comodides.tetoForrado ?'#A1E5BC' :'#F0FFF0'}
-        title={props.comodides.forrado ? 'Forrado' : ''} />
+        title={props.comodides.tetoForrado ? 'Forrado' : ''} />
         <ButtonOption 
         activeOpacity={1}
         ativo={true}
@@ -65,20 +65,20 @@ const Informacoes = (props) => {
         ativo={true}
         width={width} height={42}
         backgroundColor={props.comodides.wifi ?'#A1E5BC' :'#F0FFF0'}
-        title={props.comodides.ceramica ? 'Wifi' : ''} />
+        title={props.comodides.wifi ? 'Wifi' : ''} />
         </View>
         <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-around'}}>
         <ButtonOption 
         activeOpacity={1}
         ativo={true}
         width={width} height={42}
-        backgroundColor={props.comodides.agua ?'#A1E5BC' :'#EBDD5E'}
+        backgroundColor={props.comodides.agua ?'#A1E5BC' :'#F0FFF0'}
         title={props.comodides.agua ? 'Água' : ''} />
         <ButtonOption 
         activeOpacity={1}
         ativo={true}
         width={width} height={42}
-        backgroundColor={props.comodides.energia ?'#A1E5BC' :'#EBDD5E'}
+        backgroundColor={props.comodides.energia ?'#A1E5BC' :'#F0FFF0'}
         title={props.comodides.energia ? 'Energia' : ''} />
         </View>
     </View>

@@ -43,67 +43,7 @@ import RedesSociais from '../pages/RedesSociais/index'
 import ConfigPerfil from '../pages/ConfiguracoesUsuario/Index'
 import RedefinirSenha from '../pages/RecuperarSenha/RecuperarSenha'
 import TelaInicial from '../pages/TelaInicial/Index'
-// const TabTop = createMaterialTopTabNavigator({
-//   Solicitacoes : {
-//     name : 'solicitacoes',
-//     screen : Solicitacoes,
-//     navigationOptions: ({navigation,screenProps})=>
-//     ({
-//       tabBarLabel:"Recebidas",
-//       tabBarIcon: ({ tintColor }) => (
-//         <>
-//        {<NotificationPendente
-//         width= {24}
-//         height= {24}
-//         left = {-22.8}
-//         top = {-14}
-//         />}
-//         <Icon name="lock1" size={24} color={tintColor}/>
-//         </>
-//       )
-//     })
-//   },
-//   Liberadas : {
-//     name: 'aceitas',
-//     screen : SolicitacoesAceitas,
-//     navigationOptions: ({navigation,screenProps})=>({
-//       tabBarLabel:"Liberadas",
-//       tabBarIcon: ({ tintColor }) => (
-//         <>
-//        {<NotificationAceita
-//         width= {14}
-//         height= {14}
-//         left = {-8}
-//         top = {-8}
-//         />}
-//         <Icon name="unlock" size={24} color={tintColor}/>
-//         </>
-//       )
-//     })
-//   }
-// },{
-// tabBarOptions: {
-//   showIcon:true,
-//   labelStyle: {
-//     fontSize: 12,
-//   },
-//   inactiveTintColor:'#07000F',
-//   activeTintColor:'#57CF87',
-//   indicatorStyle:{
-//     backgroundColor:'#fff'
-//   },
-//   tabStyle: {
-//     marginTop : 20,
-//     flex:1,
-//     flexDirection:'row',
-//     alignItems:'center'
-//   },
-//   style: {
-//     backgroundColor: '#fff',
-//     elevation:0
-//   },
-// }}
-// )
+import UsuarioVisitado from '../pages/PerfilUsuario/UsuarioVisitado'
 
 const Tab = createMaterialBottomTabNavigator ({
   Post :{
@@ -111,7 +51,7 @@ const Tab = createMaterialBottomTabNavigator ({
     navigationOptions: {
       tabBarLabel:"Posts",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="home" size={24} color={tintColor}/>
+        <Icon name="home" size={26} color={tintColor}/>
       )
     },
   },
@@ -120,7 +60,7 @@ const Tab = createMaterialBottomTabNavigator ({
     navigationOptions: {
       tabBarLabel:"Colegas",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="team" size={24} color={tintColor}/>
+        <Icon name="team" size={26} color={tintColor}/>
       )
     },
   },
@@ -146,7 +86,7 @@ const Tab = createMaterialBottomTabNavigator ({
         alignItems:'center',
         width:24,
         marginBottom:10.8}}>
-            <Icon name="bells" size={24} color={tintColor}/>
+            <Icon name="bells" size={26} color={tintColor}/>
             {<NotificationIcon 
         width= {12}
         height= {12} 
@@ -170,10 +110,14 @@ const Tab = createMaterialBottomTabNavigator ({
 {
   initialRouteName: 'Post',
   tabBarOptions:{
-    showIcon: true,
+    showIcon: true
   },
+  sceneAnimationEnabled : true,
+  shifting : true,
+  resetOnBlur:false,
+  swipeEnabled: true,
   activeColor: '#051E0B',
-  inactiveColor: '#B8E5CA',
+  inactiveColor: '#838B84',
   barStyle: { backgroundColor: '#fff' },
 })
 const LoadingLog = createStackNavigator({
@@ -205,11 +149,47 @@ const RegisterOptions = createStackNavigator({
 },{
   headerMode : 'none'
 })
-const App = createStackNavigator(
-  {
+let MyTransition = (index, position) => {
+    const inputRange = [index - 1, index, index + 1];
+    const opacity = position.interpolate({
+        inputRange,
+        outputRange: [12, 1, 1],
+    });
+
+    const scaleY = position.interpolate({
+        inputRange,
+        outputRange: ([0.8, 1, 0]),
+    });
+    const scaleX = position.interpolate({
+      inputRange,
+      outputRange : [1,1,1],
+    })
+
+    return {
+        opacity,
+        transform: [
+            {scaleX}
+        ]
+    };
+};
+let TransitionConfiguration = () => {
+    return {
+        // Define scene interpolation, eq. custom transition
+        screenInterpolator: (sceneProps) => {
+
+            const {position, scene} = sceneProps;
+            const {index} = scene;
+
+            return MyTransition(index, position);
+        }
+    }
+};
+const Scenes = {
+
    Tab,
    RegisterOptions,
    ProfileVaga,
+   UsuarioVisitado,
    InteressadosPost,
    FormPeoplesSearchingMain,
    MapComponent,
@@ -225,10 +205,15 @@ const App = createStackNavigator(
    ConfigPost,
    ConfigEndereco,
    RedefinirSenha 
-},
+
+}
+const App = createStackNavigator(
+  Scenes
+  ,
 {
   initialRouteName :  'Tab',
-  headerMode : 'none'
+  headerMode : 'none',
+  transitionConfig: TransitionConfiguration
 }
 );
 const Application = createSwitchNavigator({
